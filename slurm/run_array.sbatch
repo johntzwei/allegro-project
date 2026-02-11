@@ -11,7 +11,7 @@
 #SBATCH --error=slurm_logs/%A_%a.err
 
 # Usage: sbatch --array=0-2 slurm/run_array.sbatch
-# Runs experiments/00_*.py, experiments/01_*.py, experiments/02_*.py
+# Runs experiments/00_*/run.py, experiments/01_*/run.py, experiments/02_*/run.py
 
 mkdir -p slurm_logs
 
@@ -21,8 +21,7 @@ module load cuda/12.4.0
 
 cd $SLURM_SUBMIT_DIR
 
-EXPERIMENT=$(printf "experiments/%02d_*.py" $SLURM_ARRAY_TASK_ID)
-EXPERIMENT=$(ls $EXPERIMENT 2>/dev/null | head -1)
+EXPERIMENT=$(ls -d experiments/$(printf "%02d" $SLURM_ARRAY_TASK_ID)_*/run.py 2>/dev/null | head -1)
 
 if [ -z "$EXPERIMENT" ]; then
     echo "No experiment found for task ID $SLURM_ARRAY_TASK_ID"

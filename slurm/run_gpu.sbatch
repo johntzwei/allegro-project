@@ -18,5 +18,5 @@ module load cuda/12.4.0
 
 cd $SLURM_SUBMIT_DIR
 
-# Usage: sbatch slurm/run_gpu.sbatch experiments/00_example.py
+# Usage: sbatch slurm/run_gpu.sbatch experiments/00_example/run.py
 uv run python "$@"

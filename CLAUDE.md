@@ -22,13 +22,13 @@ uv sync
 
 ### Run an experiment locally (on a compute node)
 ```
-uv run python experiments/<experiment>.py
+uv run python experiments/<experiment>/run.py
 ```
 
 ### Submit a SLURM job
 ```
-sbatch slurm/run_gpu.sbatch experiments/00_example.py        # single job, high priority
-sbatch slurm/run_preempt.sbatch experiments/00_example.py    # single job, preemptable
+sbatch slurm/run_gpu.sbatch experiments/00_example/run.py        # single job, high priority
+sbatch slurm/run_preempt.sbatch experiments/00_example/run.py    # single job, preemptable
 sbatch --array=0-2 slurm/run_array.sbatch                    # array: runs 00_, 01_, 02_
 ```
 
@@ -53,7 +53,7 @@ uv run pytest
 - `tests/` — pytest tests
 
 ## Conventions
-- Experiments: numbered scripts in `experiments/` (00_xxx.py, 01_xxx.py, ...). Create new files, don't edit old ones.
+- Experiments: numbered folders in `experiments/` (00_xxx/, 01_xxx/, ...) each with a `run.py`. Create new folders, don't edit old ones.
 - Reusable code goes in `src/allegro/` with argparse for flexibility
 - Tracking: wandb (disable with `WANDB_MODE=disabled`)
 - Outputs go to `outputs/`, cached intermediates to `cache/`

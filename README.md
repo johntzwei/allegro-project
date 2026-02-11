@@ -19,11 +19,11 @@ uv sync --extra dev
 
 ```bash
 # Run an experiment (uv run handles venv activation automatically)
-uv run python experiments/00_example.py
+uv run python experiments/00_example/run.py
 
 # Submit to SLURM
-sbatch slurm/run_gpu.sbatch experiments/00_example.py
-sbatch slurm/run_preempt.sbatch experiments/00_example.py
+sbatch slurm/run_gpu.sbatch experiments/00_example/run.py
+sbatch slurm/run_preempt.sbatch experiments/00_example/run.py
 
 # Submit an array of experiments (runs 00, 01, 02)
 # Each experiment can read SLURM_ARRAY_TASK_ID from the environment
@@ -48,13 +48,17 @@ Each experiment is a numbered, self-contained script that hardcodes its paramete
 
 ```text
 experiments/
-  00_example.py
-  01_baseline.py
-  02_finetune_gpt2.py
+  00_example/
+    run.py              # experiment script (version-controlled)
+    results/            # outputs (gitignored)
+    logs/               # logs (gitignored)
+    figures/            # plots (gitignored)
+  01_baseline/
+    run.py
   ...
 ```
 
-Create new files for new experiments — don't edit old ones.
+Create new folders for new experiments — don't edit old ones.
 
 ## Experiment Tracking
 
