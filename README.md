@@ -2,6 +2,23 @@
 
 Research project template for the Allegro lab.
 
+## Starting a New Project
+
+Click **"Use this template"** on GitHub to create a new repo, then:
+
+```bash
+git clone git@github.com:<your-username>/<your-project>.git
+cd <your-project>
+
+# Rename the package: replace "allegro" with your project name
+mv src/allegro src/<your_project>
+# Update "allegro" -> "<your_project>" in pyproject.toml (name and packages)
+# Update imports in experiments/00_example/run.py and tests/
+
+bash install_uv.sh   # if uv not installed
+uv sync
+```
+
 ## Setup
 
 ```bash
