@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+.venv/
+
+# uv
+uv.lock
+
+# IDE
+.vscode/
+.idea/
+
+# Outputs and caches
+outputs/
+cache/
+slurm_logs/
+wandb/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data (add specific patterns as needed)
+data/
+*.pt
+*.bin
+*.safetensors
