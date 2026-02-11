@@ -48,7 +48,8 @@ uv run pytest
 
 ## Project Layout
 - `src/allegro/` — shared library code (reusable modules with argparse)
-- `experiments/` — numbered experiment scripts (hardcoded params, version-controlled)
+- `experiments/` — numbered experiment folders (00_xxx/, 01_xxx/, ...) each with `run.py`, `results/`, `logs/`, `figures/`
+- `data/` — datasets (gitignored)
 - `slurm/` — SLURM job templates
 - `tests/` — pytest tests
 
