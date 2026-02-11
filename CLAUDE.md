@@ -58,4 +58,3 @@ uv run pytest
 - Each experiment folder should have a `README.md` with detailed setup, results, and observations. The top-level `experiments/README.md` should only contain brief descriptions of each experiment.
 - Reusable code goes in `src/allegro/` with argparse for flexibility
 - Tracking: wandb (disable with `WANDB_MODE=disabled`)
-- Outputs go to `outputs/`, cached intermediates to `cache/`
