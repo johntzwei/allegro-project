@@ -55,6 +55,7 @@ uv run pytest
 ```text
 src/allegro/       # Shared library code (reusable modules with argparse)
 experiments/       # Numbered experiment scripts (hardcoded params, version-controlled)
+notes/             # Writeups, paper summaries, meeting notes
 slurm/             # SLURM job templates
 tests/             # Tests
 ```
