@@ -29,7 +29,8 @@
       "Bash(uv run python:*)",
       "Bash(uv run:*)",
       "Bash(uv sync:*)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:arxiv.org)"
     ]
   }
 }
