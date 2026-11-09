@@ -29,6 +29,9 @@ uv sync
 # Install Claude Code
 curl -fsSL https://claude.ai/install.sh | bash
 
+# Install Codex
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+
 # Create local settings without overwriting existing credentials.
 if [ ! -e .env ]; then
     cat > .env <<'EOF'
