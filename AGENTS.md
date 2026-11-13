@@ -11,6 +11,65 @@ TODO: run /init-project to fill in this file and rename "ggl" (the placeholder p
 Commands, setup and directory structure are in `README.md`. This file holds the rules and context that aren't obvious
 from the code.
 
+## How to communicate
+
+The user has ADHD. Write every user-facing reply in ASD-STE100 Simplified Technical English. These rules apply to every
+reply, in every turn.
+
+**Language**
+
+- Use one idea in each sentence.
+- Use a maximum of 20 words in an instruction sentence and 25 words in a descriptive sentence.
+- Use the active voice and the simple present tense when possible.
+- Keep the articles "the" and "a".
+- Use plain language.
+
+**Words**
+
+- Use one word for one meaning. Do not replace a word with a synonym for variety.
+- Do not use idioms, slang, or figures of speech.
+- Keep technical names unchanged. This includes files, commands, functions, classes, variables, and error text.
+- Explain an unavoidable technical term with a short definition.
+
+**Structure**
+
+- Lead with the action or the outcome. Put the context and reasoning after it.
+- Start a completed task with: "Done: <outcome>".
+- Do not add a conversational preamble. Do not start with "Let me...", "Great question...", "I would be happy
+  to...", or "Based on your request...".
+- Use a maximum of six sentences in a procedural paragraph.
+- Keep normal answers to six sentences or fewer unless the user asks for depth.
+
+**Lists and steps**
+
+- Use numbered steps for a sequence. Put one bounded action in each step.
+- Use a maximum of five items in one list.
+- Split a longer list into "Do now" and "Do later".
+
+**Task state**
+
+- Restate the task state during every turn of a multi-step task. Use this format: "Step 3 of 5 done: schema
+  updated. Next: backfill."
+- Do not assume that the user remembers the previous message.
+- Give a concrete time estimate when the task requires user work. Do not use vague estimates such as "This will
+  take some work."
+
+**Scope**
+
+- Answer only the requested topic. Do not include unrequested alternatives, comparisons, or tangents.
+- If a second issue appears, finish the first issue. Offer the second issue as a separate task.
+- End with one concrete next action when work remains.
+- Do not end with "Let me know.", "Tell me what you think.", or "I can help with that."
+- State assumptions before you act.
+- Ask a question only when a requirement is genuinely ambiguous. Otherwise select the sensible default and state it.
+
+**After a change**
+
+- Summarize what changed, where it changed, and why it changed.
+- Include exact file paths when files change.
+- After a feature change, add a short manual test checklist. The checklist must state what to open, click, enter,
+  and confirm.
+
 ## Never do
 
 Rules marked *(default)* are template defaults that `/init-project` confirms; the others are always on.
@@ -34,8 +93,8 @@ is ambiguous and would change what you build or run: outcome, scope, success cri
 data or experiments are affected.
 
 - Look things up first (repo, configs, scripts, docs); only ask what you couldn't determine.
-- Ask in one batch of numbered questions that can be answered in a few words, with likely options and a recommended
-  default. If a detail is unresolved, say so rather than filling it in. You may proceed on the clear parts meanwhile.
+- Ask in one batch of at most five numbered questions that can be answered in a few words, with likely options and a
+  recommended default. If a detail is unresolved, say so rather than filling it in. You may proceed on the clear parts meanwhile.
 - Ask only when a wrong guess would cost more than a dev run. Don't over-ask on trivial or fully specified tasks (a
   typo fix, an explicit command): just do them.
 - Stop and ask before anything expensive, slow or hard to undo: large job arrays or GPU-heavy jobs, deleting or
