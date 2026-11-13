@@ -28,6 +28,13 @@ uv sync
 
 # Install Claude Code
 curl -fsSL https://claude.ai/install.sh | bash
+export PATH="$HOME/.local/bin:$PATH"
+
+# Install the i-have-adhd skill and make it always on
+claude plugin marketplace add ayghri/i-have-adhd
+claude plugin install i-have-adhd@i-have-adhd
+mkdir -p "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+touch "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.i-have-adhd-always"
 
 # Install Codex
 curl -fsSL https://chatgpt.com/codex/install.sh | sh
