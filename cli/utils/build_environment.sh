@@ -27,6 +27,14 @@ fi
 # local project in editable mode, using its current name from pyproject.toml.
 uv sync
 
+# Install Node.js 22 (needed by the Claude Code and Codex plugins) into
+# ~/.local without root access.
+mkdir -p "$HOME/.local"
+V=$(curl -fsSL https://nodejs.org/dist/latest-v22.x/SHASUMS256.txt | grep -o 'node-v[0-9.]*-linux-x64.tar.xz' | head -1)
+curl -fsSL "https://nodejs.org/dist/latest-v22.x/$V" | tar -xJ -C ~/.local --strip-components=1
+export PATH="$HOME/.local/bin:$PATH"
+node --version
+
 # Install Claude Code
 curl -fsSL https://claude.ai/install.sh | bash
 export PATH="$HOME/.local/bin:$PATH"
