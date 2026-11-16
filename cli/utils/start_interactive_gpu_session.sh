@@ -1,8 +1,6 @@
 #!/bin/bash
 #
-# Start an interactive GPU session on the Yale Misha cluster. See here for
-# cluster documentation:
-# https://docs.ycrc.yale.edu/clusters/misha/
+# Start an interactive GPU session on a YCRC cluster.
 #
 # Defaults to the `gpu_devel` partition (6 hour max, 1 A40 GPU, 4 CPUs and 32G
 # per user), which is meant for debugging. Use PARTITION=gpu for larger or

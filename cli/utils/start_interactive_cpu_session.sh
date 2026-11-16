@@ -1,8 +1,6 @@
 #!/bin/bash
 #
-# Start an interactive CPU session on the Yale Misha cluster. See here for
-# cluster documentation:
-# https://docs.ycrc.yale.edu/clusters/misha/
+# Start an interactive CPU session on a YCRC cluster.
 #
 # Defaults to the `devel` partition (6 hour max, 10 CPUs and 70G per user).
 # Every default can be overridden with an environment variable.
