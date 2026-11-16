@@ -44,3 +44,5 @@ Thumbs.db
 *.safetensors
 .env
 *.ckpt
+
+.claude/settings.local.json

@@ -30,7 +30,8 @@
       "Bash(uv run:*)",
       "Bash(uv sync:*)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:arxiv.org)"
+      "WebFetch(domain:arxiv.org)",
+      "Bash(git worktree *)"
     ]
   }
 }
