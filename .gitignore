@@ -19,6 +19,15 @@ cache/
 slurm_logs/
 wandb/
 
+# Test coverage and mutation reports
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+mutants/
+mutmut-results.txt
+mutmut-run.log
+
 # Experiment outputs (results/logs/figures inside experiment folders)
 experiments/**/results/
 experiments/*/logs/

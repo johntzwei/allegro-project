@@ -1,0 +1,40 @@
+name: mutation
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"  # Monday 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  mutmut:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Restore mutmut cache
+        uses: actions/cache@v4
+        with:
+          path: mutants
+          key: mutmut-${{ github.sha }}
+          restore-keys: mutmut-
+      - name: Run mutmut
+        # Report only: surviving mutants do not fail the job.
+        run: uv run mutmut run || true
+      - name: Write results
+        run: |
+          uv run mutmut results > mutmut-results.txt || true
+          {
+            echo '## mutmut results'
+            echo '```'
+            cat mutmut-results.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mutmut-results
+          path: mutmut-results.txt

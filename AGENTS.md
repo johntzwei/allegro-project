@@ -13,8 +13,9 @@ from the code.
 
 ## How to communicate
 
-The user has ADHD. Write every user-facing reply in ASD-STE100 Simplified Technical English. These rules apply to every
-reply, in every turn.
+The user has ADHD. Write chat replies in ASD-STE100 Simplified Technical
+English. These communication rules apply to chat replies. Documentation,
+code comments, and commit messages follow the project conventions.
 
 **Language**
 
@@ -69,6 +70,8 @@ reply, in every turn.
 - Include exact file paths when files change.
 - After a feature change, add a short manual test checklist. The checklist must state what to open, click, enter,
   and confirm.
+- For a command-line change, state the command, its input, and the output
+  that confirms success.
 
 ## Never do
 
@@ -107,6 +110,8 @@ data or experiments are affected.
 
 - Package manager: uv (NOT conda, NOT pip directly). Python version: see `pyproject.toml`. Virtual env: `.venv/` at
   the project root.
+- `uv sync` installs the default dev group. Add development tools with
+  `uv add --dev <package>`. mutmut runs on Linux or WSL, not native Windows.
 - Secrets and local settings live in `.env` (gitignored), loaded by `load_env_vars` in `cli/utils/utils.sh`.
 - `.claude/settings.json` runs `ruff format` automatically after every edit, so don't run it again by hand.
 - Compute: TODO: where this project runs (cluster name, or "local only"). For cluster-specific notes, read
@@ -132,11 +137,20 @@ Skip this section if the project is local only.
   Weights & Biases (wandb).
 - Experiment ideas are drafted in `notes/writeups/<short-name>.md` (hypothesis, variables, baselines, metrics, what
   result would change our plans) and reviewed by the user before any code is scaffolded.
+- Use explicit section names in Markdown, such as `Decision 1` or
+  `Stop Point 1`. Avoid ambiguous one-letter labels such as `D1` and `S1`.
+  Keep established technical abbreviations such as MAE and AUC.
 - Don't rewrite old experiments; start a new folder. Bug fixes to old experiments are allowed *(default)*.
 - Reusable code goes in `src/ggl/`; runnable scripts use argparse. TODO: add a `scripts/` dir if the project needs one.
 - sbatch scripts for an experiment go in `cli/<experiment>/` and source `cli/utils/utils.sh`. Logs go under
   `experiments/<experiment>/logs/`, plus a `done.done` marker written via `get_done_file`.
 - Tests mirror `src/` (`src/ggl/utils/wandb.py` is tested in `tests/ggl/utils/test_wandb.py`).
+- Keep shared fakes and builders in `tests/helpers/` and reusable fixtures
+  in `conftest.py`. Never import one test module from another.
+- Use `test_<name>_integration.py` for tests that combine modules. Avoid
+  network access and real model calls unless the project defines a
+  separate external test suite. Configure pytest's importlib mode before
+  relying on duplicate test filenames; it is not enabled by the template.
 - Code style: ruff, line length 79. Comments and docstrings must wrap at 79 characters; rewrap the text instead of
   shortening its meaning. This is enforced by ruff (E501, W505) and a PostToolUse hook
   (`.claude/hooks/check_line_length.py`); fix any hook violation before continuing.
@@ -157,11 +171,31 @@ Skip this section if the project is local only.
   fixes), `refactor` (restructuring with no behavior change), `docs` (README, AGENTS.md, other documentation), `chore`
   (dependency bumps, config, tooling).
 - Multi-person repos may add a collaborator prefix (`mike/exp/lora-rank-sweep`); skip it for solo projects.
-- Keep `main` always runnable. Never put half-finished experiment code on `main`.
+- Keep `main` runnable. Change it only through a PR whose `ci` check
+  passes, using a squash merge. Never push directly to `main`.
+- Use one branch for one PR. Open a draft PR when first pushing a branch.
+  Never push to a branch after its PR merges. Start a new branch instead.
+- Keep at most five branches in progress. Finish, park, or archive one
+  before starting a sixth. A parked draft PR states what blocks progress.
 - `exp/` branches: create from `main`. Name the question or variable being tested, not the outcome
-  (`exp/lora-rank-sweep`, not `exp/best-lora-config`). To conclude, either merge the useful code into `main` (via a `feat/` or `refactor/`
-  branch if it needs cleanup), or tag the final commit `archive/exp/<name>` and delete the branch. Results and configs
-  must be reproducible from the tagged commit.
+  (`exp/lora-rank-sweep`, not `exp/best-lora-config`). Scaffold and dev run
+  go in `exp/<name>`. Results go in a new `exp/<name>-results` branch from
+  current `main`. Tag a dead end as `archive/exp/<name>` instead of merging
+  it. Preserve its history and outputs before requesting branch deletion.
+- For projects with long-running real jobs, launch from a dedicated
+  checkout at `stable` and keep its source files unchanged. Develop in
+  separate worktrees, for example under a sibling `<project>-wt/` folder.
+- `stable` identifies a commit on `main` that passes a small dev check
+  with real inputs and tracking disabled. A synthetic example alone does
+  not qualify. Record the validation command and commit in the experiment
+  README. Obtain authorization before moving `stable` or changing GitHub
+  repository settings.
+- Review branches and worktrees weekly. Before removing a worktree, run
+  `git status --ignored` inside it and preserve results, checkpoints, and
+  untracked files. Do not force removal while needed outputs remain.
+  Confirm before deleting branches or worktrees.
+- Record configs, seeds, and the code commit so results are reproducible
+  from the merged or tagged commit.
 - Full lifecycle and examples: "Git Workflow" in `README.md`.
 
 ## New-Experiment Checklist

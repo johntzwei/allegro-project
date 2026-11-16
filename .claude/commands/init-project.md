@@ -1,5 +1,5 @@
 ---
-description: One-time setup after creating a repo from this template. Fills in AGENTS.md TODOs and renames "ggl".
+description: Initialize a project from this template, rename "ggl", and set up Codecov coverage uploads.
 ---
 
 Initialize this project from the template. Run once. Do not read anything in `notes/discussions/`. Do not commit.
@@ -55,14 +55,31 @@ Project overview. They do not count as TODOs to fill in.
      `pyproject.toml` (project name and the hatch `packages` entry), `AGENTS.md` (title and layout), `README.md`,
      and the files under `experiments/`. Find them with `grep -rIlw ggl . --exclude-dir=.git --exclude-dir=.venv
      --exclude-dir=worktrees --exclude=uv.lock`. Don't hand-edit `uv.lock`.
-   - Run `uv sync --extra dev`, `uv run ruff check .` and `uv run pytest`, and report the results. If anything
+   - Run `uv sync`, `uv run ruff check .` and `uv run pytest`, and report the results. If anything
      fails, show the failure to the user before fixing it.
 
-6. If `CLAUDE.md` exists and contains only `@AGENTS.md`, leave it alone.
+6. Set up Codecov using `docs/codecov.md` after renaming the package:
+   - Keep coverage enabled by default. Confirm that the default dev group includes
+     `pytest-cov`, coverage targets `src/`, and CI uploads `coverage.xml`
+     with Codecov OIDC authentication.
+   - Follow the repository connection and verification steps in the guide.
+     Record the new repository's dashboard URL in the README.
+   - Generate the local coverage report and report the measured coverage.
+     If account access or an initial pushed CI run is still needed, name
+     that exact remaining action. Do not claim Codecov is connected yet.
+   - Initialize the README's CI and Codecov badges with
+     `uv run python cli/utils/init_readme_badges.py --repository OWNER/REPO`.
+     Resolve OWNER/REPO from the new repository's GitHub metadata or origin.
+     Do not use the Python package name or keep the template's repository.
+     For a private repository, obtain its Codecov badge image URL as the
+     guide describes. Pass it with `--codecov-badge-url` when available.
+     If the remote or badge access is unavailable, report what is pending.
 
-7. Show the full `git diff` (and `git status` for new or renamed files).
+7. If `CLAUDE.md` exists and contains only `@AGENTS.md`, leave it alone.
 
-8. Cleanup, in two parts:
+8. Show the full `git diff` (and `git status` for new or renamed files).
+
+9. Cleanup, in two parts:
    - Always: remove from `README.md` the `[!IMPORTANT]` callout under the title and the whole "Starting a New Project"
      section (through the line before the next `##` heading). Delete the example experiment folders
      (`experiments/2026-01-01_example/`, `cli/2026-01-01_example/`) only if the user asks.

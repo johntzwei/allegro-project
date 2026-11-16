@@ -192,7 +192,9 @@ def main(args: argparse.Namespace) -> None:
     logger.info(f"final loss={trainer.callback_metrics['loss']:.6f}")
 
     results_dir = resolve_results_dir(args.experiment)
-    pd.DataFrame(loss_recorder.losses).to_csv(results_dir / "losses.csv", index=False)
+    pd.DataFrame(loss_recorder.losses).to_csv(
+        results_dir / "losses.csv", index=False
+    )
     results = {
         "learned_weight": weight,
         "learned_bias": bias,

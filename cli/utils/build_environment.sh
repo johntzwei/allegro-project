@@ -5,6 +5,7 @@
 #
 # Usage from the project's root directory:
 #   ./cli/utils/build_environment.sh
+# Requires Node.js 22.20 or later and Git for Claude Code extensions.
 
 set -e
 
@@ -36,8 +37,12 @@ claude plugin install i-have-adhd@i-have-adhd
 mkdir -p "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 touch "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.i-have-adhd-always"
 
-# Install Codex
-curl -fsSL https://chatgpt.com/codex/install.sh | sh
+# Install the additional Claude Code plugins and skills.
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+bash "$SCRIPT_DIR/install_claude_extensions.sh"
+
+# Install Codex without prompting to start it or remove another installation.
+curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh
 export PATH="$HOME/.local/bin:$PATH"
 
 # Install the i-have-adhd skill for Codex and make it always on
@@ -66,6 +71,9 @@ The reader has ADHD. Shape every response so it can be acted on:
 Exceptions: explain fully when asked to explain. Confirm before destructive actions. After three failed fixes, stop and name the doubtful assumption. If the request is ambiguous, ask one short question.
 EOF
 fi
+
+# Install the additional Codex plugins and enable Task Observer by default.
+bash "$SCRIPT_DIR/install_codex_extensions.sh"
 
 # Create local settings without overwriting existing credentials.
 if [ ! -e .env ]; then
