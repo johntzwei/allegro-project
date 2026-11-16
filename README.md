@@ -320,6 +320,9 @@ repository. Template files alone do not configure GitHub settings.
 2. Open **Settings > Rules**. Add a branch ruleset for `main` that
    requires a PR and the `ci` status check, and blocks force pushes and
    deletion. The first CI run must report the check before you select it.
+   Or import the template's ruleset: run `gh api repos/OWNER/REPO/rulesets --method POST
+   --input .github/rulesets/protect-main.json`. `/init-project` offers to run it.
+   GitHub does not copy rulesets from a template.
 3. Confirm that **Actions** shows the `ci` check on a test PR. Verify the
    repository's merge settings and required checks before merging.
 

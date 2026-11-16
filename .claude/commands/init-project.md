@@ -75,11 +75,16 @@ Project overview. They do not count as TODOs to fill in.
      guide describes. Pass it with `--codecov-badge-url` when available.
      If the remote or badge access is unavailable, report what is pending.
 
-7. If `CLAUDE.md` exists and contains only `@AGENTS.md`, leave it alone.
+7. Ask the user for authorization to change repository settings. If they agree, apply the `main` ruleset with
+   `gh api repos/OWNER/REPO/rulesets --method POST --input .github/rulesets/protect-main.json`. Resolve OWNER/REPO as
+   in step 6. Report the ruleset id, or the exact error. If they decline, or the plan does not support rulesets, say
+   so and point to "One-time GitHub setup" in `README.md`.
 
-8. Show the full `git diff` (and `git status` for new or renamed files).
+8. If `CLAUDE.md` exists and contains only `@AGENTS.md`, leave it alone.
 
-9. Cleanup, in two parts:
+9. Show the full `git diff` (and `git status` for new or renamed files).
+
+10. Cleanup, in two parts:
    - Always: remove from `README.md` the `[!IMPORTANT]` callout under the title and the whole "Starting a New Project"
      section (through the line before the next `##` heading). Delete the example experiment folders
      (`experiments/2026-01-01_example/`, `cli/2026-01-01_example/`) only if the user asks.
